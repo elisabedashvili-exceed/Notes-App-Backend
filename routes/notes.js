@@ -1,31 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Sequelize = require("sequelize");
-// const { Client } = require('pg');
-
-/* WITHOUT SEQUELIZE - EXAMPLE */
-/* const client = new Client({
-	user: 'vakho',
-	password: 'vakho',
-	host: 'localhost',
-	port: 5432,
-	database: 'notes',
-});
-client.connect(); */
-
-const connection = new Sequelize("notes", "vakho", "vakho", {
-  host: "localhost",
-  dialect: "postgres",
-  timezone: "+04:00",
-});
-
-const Note = connection.define("note", {
-  value: { type: Sequelize.TEXT, allowNull: false },
-  username: { type: Sequelize.STRING, allowNull: true },
-  image: { type: Sequelize.STRING, allowNull: true },
-});
-
-connection.sync();
+const { Note } = require("../models/note");
 
 /* Show notes */
 router.get("/:username", (req, res, next) => {

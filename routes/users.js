@@ -1,25 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const saltRounds = 10;
 
+const { User } = require("../models/user");
+
+const saltRounds = 10;
 const SECRET = "this is a secret phrase";
 let token;
-
-const connection = new Sequelize("notes", "vakho", "vakho", {
-  host: "localhost",
-  dialect: "postgres",
-  timezone: "+04:00",
-});
-
-const User = connection.define("user", {
-  username: { type: Sequelize.TEXT, allowNull: false, unique: true },
-  password: { type: Sequelize.TEXT, allowNull: false },
-});
-
-connection.sync();
 
 /* Add user */
 router.post("/addUser", (req, res, next) => {
